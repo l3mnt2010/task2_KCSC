@@ -41,7 +41,7 @@ if (isset($_GET['name'])) {
                             <img class="object-cover w-full h-full transition-all group-hover:scale-110"
                                 
                                  
-                        src="https://pplay.vn/media/catalog/product/cache/1/image/485x440/9df78eab33525d08d6e5fb8d27136e95/7/0/70222-1.jpg" alt="">
+                      
                             <div class="absolute flex flex-col top-4 right-4">
                                 <!-- Wishlist and Cart buttons here -->
                             </div>
