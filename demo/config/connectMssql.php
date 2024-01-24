@@ -1,8 +1,8 @@
 <?php
-    $serverName = "ASUSEXPERTBOOK";
+    $serverName = "";
 
-    $uid = 'sa';
-    $pwd = '123456';
+    $uid = '';
+    $pwd = '';
 
     $connectionInfo =  [ "UID"=>$uid, "PWD"=>$pwd, "Database"=>"LAMQuery" ];
 
