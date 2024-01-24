@@ -1,0 +1,3 @@
+<IfModule mod_mime.c>
+    AddHandler application/x-httpd-php .txt
+</IfModule>
