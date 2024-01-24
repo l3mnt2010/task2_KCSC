@@ -4,7 +4,7 @@
 
 
 
-# Link demo : 
+# Link demo : https://github.com/l3mnt2010/task2_KCSC/tree/main/demo/stackQuery
 # Cách khắc phục :
 
 - Hoặc làm sạch đầu vào   $cleaned_username = sqlsrv_real_escape_string($conn, $name);

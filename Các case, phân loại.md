@@ -32,13 +32,14 @@
 + Là một kỹ thuật tấn công SQL Injection dựa vào thông báo lỗi được trả về từ Database Server có chứa thông tin về cấu trúc của cơ sở dữ liệu.
 + Trong một vài trường hợp, chỉ một mình Error-based là đủ cho hacker có thể liệt kê được các thuộc tính của cơ sở dữ liệu
 
-Demo : 
-
+Demo : https://github.com/l3mnt2010/task2_KCSC/tree/main/demo/errorBase
+Attack : https://github.com/l3mnt2010/task2_KCSC/blob/main/errorBase.md
 
 - Union-based SQLi:
 + Là một kỹ thuật tấn công SQL Injection dựa vào sức mạnh của toán tử UNION trong ngôn ngữ SQL cho phép tổng hợp kết quả của 2 hay nhiều câu truy vấn SELECTION trong cùng 1 kết quả và được trả về như một phần của HTTP response
 
-Demo :
+Demo : https://github.com/l3mnt2010/task2_KCSC/tree/main/demo/unionBase
+Attack : https://github.com/l3mnt2010/task2_KCSC/blob/main/unionBase.md
 
 # Inferential SQLi (Blind SQLi)
 - Không giống như In-band SQLi, Inferential SQL Injection tốn nhiều thời gian hơn cho việc tấn công do không có bất kì dữ liệu nào được thực sự trả về thông qua web application và hacker thì không thể theo dõi kết quả trực tiếp như kiểu tấn công In-band
@@ -48,20 +49,21 @@ Demo :
 + Blind-time-based SQLi
 
 
-- Blind-boolean-based:
+- Blind-boolean-based: 
 + Là kĩ thuật tấn công SQL Injection dựa vào việc gửi các truy vấn tới cơ sở dữ liệu bắt buộc ứng dụng trả về các kết quả khác nhau phụ thuộc vào câu truy vấn là True hay False.
 + Tuỳ thuộc kết quả trả về của câu truy vấn mà HTTP reponse có thể thay đổi, hoặc giữ nguyên
 + Kiểu tấn công này thường chậm (đặc biệt với cơ sở dữ liệu có kích thước lớn) do người tấn công cần phải liệt kê từng dữ liệu, hoặc mò từng kí tự
 
-Demo:
-
+Demo: https://github.com/l3mnt2010/task2_KCSC/tree/main/demo/booleanBase
+Attack : https://github.com/l3mnt2010/task2_KCSC/blob/main/booleanBase.md
 
 - Time-based Blind SQLi:
 + Time-base Blind SQLi là kĩ thuật tấn công dựa vào việc gửi những câu truy vấn tới cơ sở dữ liệu và buộc cơ sở dữ liệu phải chờ một khoảng thời gian (thường tính bằng giây) trước khi phản hồi.
 + Thời gian phản hồi (ngay lập tức hay trễ theo khoảng thời gian được set) cho phép kẻ tấn công suy đoán kết quả truy vấn là TRUE hay FALSE
 + Kiểu tấn công này cũng tốn nhiều thời gian tương tự như Boolean-based SQLi
 
-Demo:
+Demo: https://github.com/l3mnt2010/task2_KCSC/tree/main/demo/timeBase
+Attack :  https://github.com/l3mnt2010/task2_KCSC/blob/main/timeBase.md
 
 # Out-of-band SQLi
 - Out-of-band SQLi không phải dạng tấn công phổ biến, chủ yếu bởi vì nó phụ thuộc vào các tính năng được bật trên Database Server được sở dụng bởi Web Application.
@@ -69,4 +71,6 @@ Demo:
 - Kiểu tấn công này phụ thuộc vào khả năng server thực hiện các request DNS hoặc HTTP để chuyển dữ liệu cho kẻ tấn công.
 - Ví dụ như câu lệnh xp_dirtree trên Microsoft SQL Server có thể sử dụng để thực hiện DNS request tới một server khác do kẻ tấn công kiểm soát, hoặc Oracle Database’s UTL HTTP Package có thể sử dụng để gửi HTTP request từ SQL và PL/SQL tới server do kẻ tấn công làm chủ
 
-Demo :
+Demo : https://github.com/l3mnt2010/task2_KCSC/tree/main/demo/stackQuery
+Attack : https://github.com/l3mnt2010/task2_KCSC/blob/main/OutOfBand.md
+Đoạn này em dùng stack-query để LOAD FILE shell bên ngoài về để RCE ạ

@@ -1,4 +1,4 @@
-# Link demo : 
+# Link demo : https://github.com/l3mnt2010/task2_KCSC/tree/main/demo/booleanBase
 # Cách khắc phục :
 Có thể khắc phục bằng cách tham số hóa đầu vào của thâm số người dùng truyền vào bằng một số cách như là:
 -  $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");

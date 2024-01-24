@@ -3,7 +3,7 @@
 ## Về dạng này em dùng source của bài StackQuery ạ nhưng mà với một hướng đi khác là em sẽ wget 1 shell về để RCE ạ
 ## Còn một hướng khác nữa là em sẽ dùng LOAD_FILE để lấy file php độc hại về sever hoặc là em sẽ dùng cách truyền đầu ra đến máy của kẻ nghe lén ạ
 
-# Link demo : 
+# Link demo : https://github.com/l3mnt2010/task2_KCSC/tree/main/demo/stackQuery
 # Cách khắc phục :
 
 - Hoặc làm sạch đầu vào   $cleaned_username = sqlsrv_real_escape_string($conn, $name);
