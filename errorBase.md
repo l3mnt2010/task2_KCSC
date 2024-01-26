@@ -8,11 +8,6 @@ Có thể khắc phục bằng cách tham số hóa đầu vào của thâm số
 $cleaned_password = mysqli_real_escape_string($conn, $password);
 - Và tìm hiểu các CVE của các phiên bản để tránh được lỗi này có thể xảy ra.
 
-Khi em vào giao diện sẽ như thế này
-
-
-![Alt text](./imagesBooleanBase/image-20.png)
-
 - Đây là đoạn code dính lỗi sqli:
 
 ![Alt text](./imagesErrorBase/image-21.png)
