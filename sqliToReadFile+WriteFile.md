@@ -1,4 +1,8 @@
 # Link demo : https://github.com/l3mnt2010/task2_KCSC/tree/main/demo/read_writeFile
+
+### NOTE :
++ Về điều kiện thực hiện của LOAD_FILE và WRITE_FILE rất hiếm trường hợp thực tế mình có thể thực hiện vì thường thì mysql không có quyền ghi vào file webroot và  nếu mà người ta sử dụng 2 sever riêng thì điều đó cũng hoàn toàn khó khăn trừ khi quản trị cấp quyền đó cho mysql
+
 # Cách khắc phục :
 Có thể khắc phục bằng cách tham số hóa đầu vào của thâm số người dùng truyền vào bằng một số cách như là:
 -  $stmt = $conn->prepare("SELECT * FROM users WHERE username = ? AND password = ?");

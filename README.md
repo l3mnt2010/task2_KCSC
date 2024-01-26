@@ -1,4 +1,8 @@
 ### task2_KCSC
+
+
++ Về điều kiện thực hiện của LOAD_FILE và WRITE_FILE rất hiếm trường hợp thực tế mình có thể thực hiện vì thường thì mysql không có quyền ghi vào file webroot và  nếu mà người ta sử dụng 2 sever riêng thì điều đó cũng hoàn toàn khó khăn trừ khi quản trị cấp quyền đó cho mysql
+
  Em để link demo và cách khắc phục ở đầu mỗi file readme em kiệt kê ở dưới ạ.
 
 # Cách khắc phục chung theo ý hiểu của em:

